@@ -6,8 +6,8 @@ export const users = pgTable("users", {
   email: text("email").notNull().unique(),
   name: text("name"),
   imageUrl: text("image_url"),
-  createAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updateAt: timestamp("update_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("update_at", { mode: "date" })
     .notNull()
     .defaultNow()
     .$onUpdate(() => new Date()),
@@ -21,8 +21,8 @@ export const products = pgTable("products", {
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
-  createAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
-  updateAt: timestamp("update_at", { mode: "date" })
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  updatedAt: timestamp("update_at", { mode: "date" })
     .notNull()
     .defaultNow()
     .$onUpdate(() => new Date()),
@@ -37,7 +37,7 @@ export const comments = pgTable("comments", {
   productId: uuid("product_id")
     .notNull()
     .references(() => products.id, { onDelete: "cascade" }),
-  createAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
+  createdAt: timestamp("created_at", { mode: "date" }).notNull().defaultNow(),
 });
 
 // A user can have manu products and many comments
