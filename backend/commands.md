@@ -20,3 +20,5 @@ create backend/drizzle.config.ts (where you configure drizzle: schema, dialect, 
 add the script command ["db:push": "drizzle-kit push"] to package.json and "npm run db:push" to create the schema into the Neon remote database
 
 #### CREATE A NEW PROJECT IN CLERK AND GET THE 'CLERK_PUBLISHABLE_KEY' AND 'CLERK_SECRET_KEY'
+
+npm i @clerk/express@1.7.60 -> Reinstall because the first one had an error, a bug
