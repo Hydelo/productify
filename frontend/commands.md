@@ -18,3 +18,8 @@ npm install @clerk/clerk-react
 #### INSTALL REACT-ROUTER
 
 npm install react-router
+
+#### INSTALL AXIOS AND TANSTACK QUERY TO FETCH DATA
+
+npm install axios
+npm i @tanstack/react-query

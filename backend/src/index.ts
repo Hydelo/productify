@@ -1,5 +1,5 @@
 import { ENV } from "./config/env";
-import express, { urlencoded } from "express";
+import express from "express";
 import cors from "cors";
 import { clerkMiddleware } from "@clerk/express";
 import userRoutes from "./routes/userRoutes";
@@ -8,14 +8,17 @@ import commentRoutes from "./routes/commentRoutes";
 
 const app = express();
 
-app.use(cors({ origin: ENV.FRONTEND_URL })); // to allow comm back and front end
+app.use(cors({ origin: ENV.FRONTEND_URL, credentials: true }));
+// to allow comm back and front end
+// 'credentials: true' allows the frontend to send cookies to the backend so that we can authenticate the user
 app.use(clerkMiddleware()); // auth obj will be attached to the req
 app.use(express.json()); // parses request bodies
-app.use(express, urlencoded({ extended: true })); // parses form data (like HTML forms)
+app.use(express.urlencoded({ extended: true })); // parses form data (like HTML forms)
 
 app.get("/", (req, res) => {
   res.json({
-    message: "Welcome to Productify API - Powered by PostgreSQL, Drizzle ORM & Clerk Auth",
+    message:
+      "Welcome to Productify API - Powered by PostgreSQL, Drizzle ORM & Clerk Auth",
     endpoints: {
       users: "/api/users",
       products: "/api/products",
@@ -28,4 +31,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/comments", commentRoutes);
 
-app.listen(ENV.PORT, () => console.log(`Server is up and running on: http://127.0.0.1:${ENV.PORT}`));
+app.listen(ENV.PORT, () =>
+  console.log(`Server is up and running on: http://127.0.0.1:${ENV.PORT}`),
+);
