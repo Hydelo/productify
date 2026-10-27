@@ -1,6 +1,13 @@
 import { db } from "./index";
 import { eq } from "drizzle-orm";
-import { users, comments, products, type NewUser, type NewComment, type NewProduct } from "./schema";
+import {
+  users,
+  comments,
+  products,
+  type NewUser,
+  type NewComment,
+  type NewProduct,
+} from "./schema";
 
 // USER QUERIES
 
@@ -18,7 +25,11 @@ export const updateUser = async (id: string, data: Partial<NewUser>) => {
   if (!existingUser) {
     throw new Error(`User with id ${id} not found`);
   }
-  const [user] = await db.update(users).set(data).where(eq(users.id, id)).returning();
+  const [user] = await db
+    .update(users)
+    .set(data)
+    .where(eq(users.id, id))
+    .returning();
   return user;
 };
 
@@ -51,7 +62,7 @@ export const createProduct = async (data: NewProduct) => {
 };
 
 export const getAllProducts = async () => {
-  const products = db.query.products.findMany({
+  return db.query.products.findMany({
     with: { user: true },
     orderBy: (products, { desc }) => [desc(products.createdAt)], // desc means: you will see the latest products first
     // the square brackets are required because Drizzle ORM's orderBy expects an array, even for a single column
@@ -86,7 +97,11 @@ export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
   if (!existingProduct) {
     throw new Error(`Product with id ${id} not found`);
   }
-  const [product] = await db.update(products).set(data).where(eq(products.id, id)).returning();
+  const [product] = await db
+    .update(products)
+    .set(data)
+    .where(eq(products.id, id))
+    .returning();
   return product;
 };
 
@@ -95,7 +110,10 @@ export const deleteProduct = async (id: string) => {
   if (!existingProduct) {
     throw new Error(`Product with id ${id} not found`);
   }
-  const [product] = await db.delete(products).where(eq(products.id, id)).returning();
+  const [product] = await db
+    .delete(products)
+    .where(eq(products.id, id))
+    .returning();
   return product;
 };
 
@@ -111,7 +129,10 @@ export const deleteComment = async (id: string) => {
   if (!existingComment) {
     throw new Error(`Comment with id ${id} not found`);
   }
-  const [comment] = await db.delete(comments).where(eq(comments.id, id)).returning();
+  const [comment] = await db
+    .delete(comments)
+    .where(eq(comments.id, id))
+    .returning();
   return comment;
 };
 

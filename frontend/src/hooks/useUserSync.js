@@ -6,7 +6,7 @@ import { syncUser } from "../lib/api";
 // the best way to implement this is by using webhooks
 
 function useUserSync() {
-  const { isSignedIn } = useAuth();
+  const { isSignedIn } = useAuth(false);
   const { user } = useUser();
 
   const {

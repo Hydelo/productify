@@ -28,9 +28,8 @@ function Navbar() {
           {isSignedIn ? (
             <>
               <Link to="/create" className="btn btn-primary btn-sm gap-1">
-                <PlusIcon className="size-4">
-                  <span className="hidden sm:inline">New Product</span>
-                </PlusIcon>
+                <PlusIcon className="size-4" />
+                <span className="hidden sm:inline">New Product</span>
               </Link>
               <Link to="/profile" className="btn btn-ghost btn-sm gap-1">
                 <UserIcon className="size-4" />

@@ -11,9 +11,28 @@ export const syncUser = async (userData) => {
 // -----------PRODUCTS----------
 
 // PRODUCTS API
+// export const getAllProducts = async () => {
+//   const { data } = await api.get("/products");
+//   return data;
+// };
+
+// tive que mudar para FETCH, pois com AXIOS a digitação no browser de URL/create não estava carregado os produtos
 export const getAllProducts = async () => {
-  const { data } = await api.get("/products");
-  return data;
+  // Buscamos a URL base da sua variável de ambiente
+  const baseURL = import.meta.env.VITE_API_URL;
+
+  // Fazemos a requisição com o fetch nativo do navegador
+  const response = await fetch(`${baseURL}/products`, {
+    method: "GET",
+    // Se o seu backend exigir cookies/sessão mesmo sendo pública, use 'include'
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return response.json();
 };
 
 // PRODUCT BY ID API
